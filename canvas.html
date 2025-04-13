@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>23BCE1507</title>
+</head>
+<body>
+
+
+  <!-- Content Section -->
+  <div id="audio" style="text-align: left; margin: 50px 0;">
+    <h2>Audio</h2>
+    <audio controls>
+      <source src="audio-sample.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <div id="video" style="text-align: left; margin: 50px 0;">
+    <h2>Video</h2>
+    <video controls width="320" height="240">
+      <source src="video-sample.mp4" type="video/mp4">
+    </video>
+  </div>
+
+ 
+
+  <div id="canvas" style="text-align: left; margin: 50px 0;">
+    <h2>Canvas</h2>
+    <canvas id="myCanvas" width="320" height="240" style="border: 1px solid black;">
+    </canvas>
+    
+    <script>
+      // JavaScript to draw an image inside the canvas
+      const canvas = document.getElementById('myCanvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      img.src = 'lp.png'; // Replace with the path to your PNG image
+      img.onload = () => {
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      };
+    </script>
+  </div>
+
+  
+
+</body>
+</html>

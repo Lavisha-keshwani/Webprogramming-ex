@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23BCE1507</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #e0e0e0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+        input, button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            font-size: 16px;
+            width: 80%;
+        }
+        button {
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .eligible {
+            color: green;
+            background-color: #d4edda;
+            padding: 10px;
+        }
+        .not-eligible {
+            color: red;
+            background-color: #f8d7da;
+            padding: 10px;
+        }
+        img {
+            width: 150px;
+            margin-top: 10px;
+        }
+        .title-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .title-container img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="title-container">
+        <img src="https://cdn-icons-png.flaticon.com/512/2907/2907150.png" alt="Car Icon">
+        <h1>Driving Eligibility Check</h1>
+    </div>
+    <div class="container">
+        <input type="number" id="age" placeholder="Enter your age">
+        <button onclick="checkEligibility()">Check Eligibility</button>
+        <div id="result"></div>
+        <img id="carImage" src="" style="display:none;">
+    </div>
+
+    <script>
+        function checkEligibility() {
+            let age = parseInt(document.getElementById("age").value);
+            let resultDiv = document.getElementById("result");
+            let carImage = document.getElementById("carImage");
+            
+            if (isNaN(age)) {
+                resultDiv.innerHTML = "Please enter a valid age.";
+                resultDiv.className = "";
+                //carImage.style.display = "none";
+                return;
+            }
+            
+            if (age >= 18) {
+                resultDiv.innerHTML = "Congratulations! You are eligible to drive!";
+                resultDiv.className = "eligible";
+                //carImage.src = "https://cdn.pixabay.com/photo/2014/04/02/10/56/car-303338_1280.png"; // Green car image
+            } else {
+                resultDiv.innerHTML = "Sorry, you are NOT eligible to drive. You must be at least 18 years old.";
+                resultDiv.className = "not-eligible";
+                //carImage.src = "https://cdn.pixabay.com/photo/2016/12/30/19/05/car-1945897_1280.png"; // Red car image
+            }
+            carImage.style.display = "block";
+        }
+    </script>
+</body>
+</html>

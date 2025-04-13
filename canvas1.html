@@ -1,0 +1,85 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        const canvas=document.getElementbyId("mycanvas");
+        const ctx=canvas.getContext("2d");
+        ctx.fillStyle="green";
+        ctx.strokeStyle="blue";
+        ctx.fillRect(50,50,150,100);
+        ctx.fill();
+        ctx.clearRect(60,35,50,50);
+        ctx.arc(150,150,50,0,2*MATH.PI);
+        ctx.beginPath();
+        ctx.moveTo(10,100);
+        ctx.quadtricCurveTo(m,m,m,m);
+        ctx.beizerCurveTo();
+        ctx.beginPath();
+        ctx.ellipse(12,12,6,6,0,0,MATH.PI)
+
+    </script>
+</head>
+<body>
+    <canvas id="mycanvas" width="500" height="400"></canvas>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Car Movement</title>
+    <style>
+        canvas {
+            border: 2px solid black;
+            display: block;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas" width="500" height="400"></canvas>
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        let carX = 200;
+        let carY = 200;
+        const carSpeed = 10;
+
+        function drawCar() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Car body (Rectangle)
+            ctx.fillStyle = "blue";
+            ctx.fillRect(carX, carY, 50, 30);
+
+            // Car roof (Smaller Rectangle)
+            ctx.fillStyle = "darkblue";
+            ctx.fillRect(carX + 10, carY - 15, 30, 15);
+
+            // Wheels (Circles)
+            ctx.fillStyle = "black";
+            ctx.beginPath();
+            ctx.arc(carX + 10, carY + 30, 7, 0, Math.PI * 2); // Left wheel
+            ctx.arc(carX + 40, carY + 30, 7, 0, Math.PI * 2); // Right wheel
+            ctx.fill();
+        }
+
+        function moveCar(event) {
+            if (event.key === "ArrowRight" && carX + 50 < canvas.width) carX += carSpeed;
+            if (event.key === "ArrowLeft" && carX > 0) carX -= carSpeed;
+            if (event.key === "ArrowUp" && carY > 0) carY -= carSpeed;
+            if (event.key === "ArrowDown" && carY + 30 < canvas.height) carY += carSpeed;
+            drawCar();
+        }
+
+        document.addEventListener("keydown", moveCar);
+        drawCar(); 
+    </script>
+</body>
+</html>

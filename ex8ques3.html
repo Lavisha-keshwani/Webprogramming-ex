@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>23BCE1507</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f9;
+      margin: 0;
+    }
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+    h2 {
+      color: #333;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .message {
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #ff4d4d;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Student Registration</h2>
+    <button onclick="askStudentConfirmation()">Are you a student?</button>
+    <div id="message" class="message"></div>
+  </div>
+
+  <script>
+    // Function to validate the registration number
+    function validateRegistrationNumber(registrationNumber) {
+      // Regular expression to check the pattern of two digits, three alphabets, and four digits
+      const regex = /^\d{2}[a-zA-Z]{3}\d{4}$/;
+      return regex.test(registrationNumber);
+    }
+
+    // Function to ask if the user is a student
+    function askStudentConfirmation() {
+      // Ask the user if they are a student
+      const isStudent = confirm("Are you a student?");
+      
+      // If user confirms, ask for the registration number
+      if (isStudent) {
+        let registrationNumber = prompt("Please enter your registration number (e.g., 12ABC1234):");
+
+        // Validate the registration number
+        if (validateRegistrationNumber(registrationNumber)) {
+          document.getElementById("message").textContent = "Registration number is valid!";
+          document.getElementById("message").style.color = "#4CAF50";  // Green color for success
+        } else {
+          document.getElementById("message").textContent = "Invalid registration number! It should be two digits followed by three alphabets and four digits.";
+          document.getElementById("message").style.color = "#ff4d4d";  // Red color for error
+        }
+      } else {
+        document.getElementById("message").textContent = "You are not a student.";
+        document.getElementById("message").style.color = "#ff4d4d";  // Red color for error
+      }
+    }
+  </script>
+
+</body>
+</html>
