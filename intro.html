@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        //alert('Hello javascript!');
+        //document.write("<h1 style=color:blue;text-align:center;>Hello World</h1>");
+        function area()
+        {
+            length=parseInt(document.f1.t1.value);
+            breadth=parseInt(document.f1.t2.value);
+            area=length*breadth;
+            alert(area);
+            confirm("Are you sure?");
+            prompt("Enter amount",10);
+        }
+    </script>
+</head>
+<body>
+    <form name="f1">
+        <input type="text" id="t1"><br>
+        <input type="text" id="t2"><br>
+        <input type="button" value="areaofrect" onclick="area()"/>
+    </form>
+</body>
+</html>

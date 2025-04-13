@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Web Utilities</title>
+</head>
+<body>
+
+  <!-- ⏱️ Stopwatch -->
+  <h2>Stopwatch</h2>
+  <h1 id="display">00:00:00</h1>
+  <button id="start">Start</button>
+  <button id="stop">Stop</button>
+  <button id="reset">Reset</button>
+
+  <!-- 🎂 Age Calculator -->
+  <h2>Calculate Age</h2>
+  <label for="dob">Enter Date of Birth:</label>
+  <input type="date" id="dob">
+  <p id="age"></p>
+
+  <!-- ✍️ Character Counter -->
+  <h2>Character Counter</h2>
+  <textarea id="textArea" rows="5" cols="30" placeholder="Type something..."></textarea>
+  <p>Characters: <span id="charCount">0</span></p>
+
+  <script>
+    // Stopwatch Script
+    let timer;
+    let seconds = 0, minutes = 0, hours = 0;
+    let running = false;
+
+    function updateDisplay() {
+      document.getElementById("display").innerText =
+        `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    function startTimer() {
+      if (!running) {
+        running = true;
+        timer = setInterval(() => {
+          seconds++;
+          if (seconds === 60) {
+            seconds = 0;
+            minutes++;
+          }
+          if (minutes === 60) {
+            minutes = 0;
+            hours++;
+          }
+          updateDisplay();
+        }, 1000);
+      }
+    }
+
+    function stopTimer() {
+      clearInterval(timer);
+      running = false;
+    }
+
+    function resetTimer() {
+      clearInterval(timer);
+      running = false;
+      seconds = 0;
+      minutes = 0;
+      hours = 0;
+      updateDisplay();
+    }
+
+    document.getElementById("start").addEventListener("click", startTimer);
+    document.getElementById("stop").addEventListener("click", stopTimer);
+    document.getElementById("reset").addEventListener("click", resetTimer);
+
+    // Age Calculator Script
+    document.getElementById("dob").addEventListener("mouseover", function () {
+      let dob = new Date(this.value);
+      let today = new Date();
+      let age = today.getFullYear() - dob.getFullYear();
+      let monthDiff = today.getMonth() - dob.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+        age--;
+      }
+      document.getElementById("age").innerText = "Your Age: " + age;
+    });
+
+    // Character Counter Script
+    let textArea = document.getElementById("textArea");
+    let charCount = document.getElementById("charCount");
+
+    textArea.addEventListener("input", function () {
+      charCount.innerText = textArea.value.length;
+    });
+  </script>
+
+</body>
+</html>

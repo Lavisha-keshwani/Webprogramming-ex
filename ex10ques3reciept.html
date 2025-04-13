@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc;
+            text-align: center;
+        }
+        .container {
+            background-color: #8a9a5b;
+            padding: 20px;
+            border-radius: 10px;
+            width: 50%;
+            margin: auto;
+            color: white;
+        }
+        table {
+            width: 100%;
+            margin-top: 10px;
+            background-color: white;
+            color: black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid black;
+        }
+        button {
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #b08d57;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Order Receipt</h2>
+        <p id="customerInfo"></p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price/kg</th>
+                    <th>Quantity (kg)</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="orderItems"></tbody>
+        </table>
+
+        <h3 id="totalAmount"></h3>
+
+        <button onclick="printReceipt()">Print Receipt</button>
+        <button onclick="downloadReceipt()">Download Receipt</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let orderDetails = JSON.parse(localStorage.getItem("orderDetails"));
+
+            if (orderDetails) {
+                document.getElementById("customerInfo").innerHTML = `
+                    <strong>Name:</strong> ${orderDetails.customerName} <br>
+                    <strong>Phone:</strong> ${orderDetails.phoneNumber} <br>
+                    <strong>Email:</strong> ${orderDetails.email} <br>
+                `;
+
+                let orderItemsHTML = "";
+                let totalAmount = 0;
+
+                orderDetails.products.forEach(product => {
+                    let total = product.price * product.qty;
+                    totalAmount += total;
+
+                    orderItemsHTML += `
+                        <tr>
+                            <td>${product.name}</td>
+                            <td>$${product.price}</td>
+                            <td>${product.qty} kg</td>
+                            <td>$${total}</td>
+                        </tr>
+                    `;
+                });
+
+                document.getElementById("orderItems").innerHTML = orderItemsHTML;
+                document.getElementById("totalAmount").innerText = `Total Amount: $${totalAmount}`;
+            }
+        });
+
+        function printReceipt() {
+            window.print();
+        }
+
+        function downloadReceipt() {
+            let receiptContent = document.querySelector(".container").innerHTML;
+            let blob = new Blob([receiptContent], { type: "text/html" });
+            let link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "receipt.html";
+            link.click();
+        }
+    </script>
+
+</body>
+</html>

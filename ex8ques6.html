@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>23bce1507</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .container {
+            display: inline-block;
+            padding: 20px;
+            border: 2px solid black;
+            border-radius: 10px;
+            background-color: #f8f8f8;
+        }
+        input {
+            width: 50px;
+            text-align: center;
+        }
+        button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: darkblue;
+        }
+        #totalAmount {
+            width: 80px;
+            font-weight: bold;
+            color: red;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>TICKET BOOTH</h2>
+
+        <label>Adults (₹10 each)</label>
+        <input type="number" id="adults" min="0"><br><br>
+
+        <label>Children (₹5 each)</label>
+        <input type="number" id="children" min="0"><br><br>
+
+        <button onclick="calculateTotal()">Total</button>
+        <input type="text" id="totalAmount" readonly>
+    </div>
+
+    <script>
+        function calculateTotal() {
+            let adultCount = document.getElementById("adults").value;
+            let childCount = document.getElementById("children").value;
+
+            let total = (adultCount * 10) + (childCount * 5);
+
+            document.getElementById("totalAmount").value = "₹" + total;
+        }
+    </script>
+
+</body>
+</html>

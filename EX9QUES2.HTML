@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23BCE1507</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            background: rgb(241, 200, 200);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 40px auto;
+        }
+        .seat {
+            width: 40px;
+            height: 40px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 2px solid gray;
+            display: inline-block;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+        }
+        .booked {
+            background-color: red;
+            color: white;
+            border: 2px solid darkred;
+        }
+        .boarding-pass {
+            border: 2px solid black;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: white;
+            text-align: left;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container text-center">
+        <h2 class="mb-3">✈ Airline Seat Reservation</h2>
+        
+        <label class="form-label">Passenger Name:</label>
+        <input type="text" id="passengerName" class="form-control mb-3" placeholder="Enter your name">
+
+        <label class="form-label">Select Class:</label>
+        <select id="classSelection" class="form-select mb-3">
+            <option value="1">First-Class (Seats 1-5)</option>
+            <option value="2">Economy (Seats 6-10)</option>
+        </select>
+
+        <button class="btn btn-primary w-100 mb-3" onclick="bookSeat()">Book Seat</button>
+
+        <h4 class="mt-4">🪑 Seat Availability</h4>
+        <div id="seatDisplay" class="mb-3"></div>
+
+        <h4>📜 Boarding Pass</h4>
+        <div id="boardingPass" class="boarding-pass">
+            <strong>Passenger:</strong> Not booked yet<br>
+            <strong>Seat Number:</strong> - <br>
+            <strong>Class:</strong> -
+        </div>
+    </div>
+
+    <script>
+        let seats = new Array(10).fill(0);
+
+        function displaySeats() {
+            let seatDiv = document.getElementById("seatDisplay");
+            seatDiv.innerHTML = "";
+
+            seats.forEach((seat, index) => {
+                let seatClass = seat === 1 ? "booked" : "";
+                seatDiv.innerHTML += `<div class="seat ${seatClass}">${index + 1}</div>`;
+            });
+        }
+
+        function bookSeat() {
+            let name = document.getElementById("passengerName").value.trim();
+            let classChoice = document.getElementById("classSelection").value;
+            if (!name) {
+                alert("Please enter your name.");
+                return;
+            }
+
+            let seatNumber = -1;
+
+            if (classChoice === "1") {
+                seatNumber = findAvailableSeat(0, 5);
+                if (seatNumber === -1 && confirm("First-Class is full. Book Economy instead?")) {
+                    seatNumber = findAvailableSeat(5, 10);
+                }
+            } else if (classChoice === "2") {
+                seatNumber = findAvailableSeat(5, 10);
+                if (seatNumber === -1 && confirm("Economy is full. Book First-Class instead?")) {
+                    seatNumber = findAvailableSeat(0, 5);
+                }
+            }
+
+            if (seatNumber !== -1) {
+                seats[seatNumber] = 1;
+                let seatClass = seatNumber < 5 ? "First-Class" : "Economy";
+
+                document.getElementById("boardingPass").innerHTML = `
+                    <strong>Passenger:</strong> ${name} <br>
+                    <strong>Seat Number:</strong> ${seatNumber + 1} <br>
+                    <strong>Class:</strong> ${seatClass}
+                `;
+
+                displaySeats();
+            } else {
+                alert("Sorry, the flight is fully booked.");
+            }
+        }
+
+        function findAvailableSeat(start, end) {
+            for (let i = start; i < end; i++) {
+                if (seats[i] === 0) return i;
+            }
+            return -1;
+        }
+
+        displaySeats();
+    </script>
+
+</body>
+</html>

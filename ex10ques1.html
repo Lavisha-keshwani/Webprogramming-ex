@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23BCE1507</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        h2 {
+            color: #007bff;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 60%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+            font-size: 16px;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+            font-size: 18px;
+        }
+        td {
+            background-color: #f0f8ff;
+        }
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            transition: 0.3s;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        .sort-btn {
+            background-color: #28a745;
+            color: white;
+        }
+        .check-btn {
+            background-color: #ff5733;
+            color: white;
+        }
+        .filter-btn {
+            background-color: #17a2b8;
+            color: white;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            margin: 5px;
+            width: 120px;
+            text-align: center;
+        }
+        #searchResult {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #ff5733;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>🏥 Hospital Patient Data</h2>
+
+    <table id="patientTable">
+        <thead>
+            <tr>
+                <th>P-Id</th>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <button class="sort-btn" onclick="sortPatients()">🔽 Sort by Age (Descending)</button>
+
+    <br>
+
+    <label><b>Enter P-Id to Check:</b></label>
+    <input type="number" id="searchId" placeholder="P-Id">
+    <button class="check-btn" onclick="checkPatient()">✔ Check</button>
+    <p id="searchResult"></p>
+
+    <br>
+
+    <label><b>Enter Age Range:</b></label>
+    <input type="number" id="minAge" placeholder="Min Age">
+    <input type="number" id="maxAge" placeholder="Max Age">
+    <button class="filter-btn" onclick="filterPatients()">🎯 Filter</button>
+
+    <script>
+        let patients = [
+            { id: 1, name: "Alen", age: 39 },
+            { id: 2, name: "Deena", age: 47 },
+            { id: 3, name: "Diana", age: 21 },
+            { id: 4, name: "Jack", age: 54 },
+            { id: 5, name: "Jain", age: 23 },
+            { id: 6, name: "Kelvin", age: 61 },
+            { id: 7, name: "Louis", age: 69 },
+            { id: 8, name: "Rex", age: 49 }
+        ];
+
+        function displayPatients(data) {
+            let tableBody = document.querySelector("#patientTable tbody");
+            tableBody.innerHTML = "";
+            data.forEach(patient => {
+                let row = `<tr>
+                    <td>${patient.id}</td>
+                    <td>${patient.name}</td>
+                    <td>${patient.age}</td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        function sortPatients() {
+            patients.sort((a, b) => b.age - a.age);
+            displayPatients(patients);
+        }
+
+        function checkPatient() {
+            let searchId = parseInt(document.getElementById("searchId").value);
+            let found = patients.some(patient => patient.id === searchId);
+            document.getElementById("searchResult").innerText = found ? "✅ Patient Found!" : "❌ Patient Not Found!";
+        }
+
+        function filterPatients() {
+            let minAge = parseInt(document.getElementById("minAge").value);
+            let maxAge = parseInt(document.getElementById("maxAge").value);
+            let filtered = patients.filter(patient => patient.age >= minAge && patient.age <= maxAge);
+            displayPatients(filtered);
+        }
+
+        // Display initial patient data
+        displayPatients(patients);
+    </script>
+
+</body>
+</html>

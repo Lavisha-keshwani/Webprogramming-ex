@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        function bmi()
+        {
+            h=parseInt(document.f1.t1.value);
+            w=parseInt(document.f1.t2.value);
+            bmi=w/((h/100)*(h/100));
+            if(bmi<18.6)
+        {
+            alert('Under weight');
+        }
+        else if(bmi>=18.6&&bmi<=24.9)
+        {
+            alert('Normal Range');
+        }
+        else{
+            alert('Overweight');
+        }
+        }
+    </script>
+</head>
+<body>
+    <h1>Exercise</h1>
+    <h1>BMI=KG/(H/100*H/100)</h1>
+    <form name="f1">
+        Height in CM<input type="text" id="t1"><br>
+        Weight in KG<input type="text" id="t2"><br>
+        <input type="button" value="Submit" onclick="bmi()"><br><br>
+    </form>
+</body>
+</html>

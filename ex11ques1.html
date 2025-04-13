@@ -1,0 +1,185 @@
+<!-- <!DOCTYPE html> 
+<html> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device
+width, initial-scale=1.0"> 
+    <title>Dynamic Table</title> 
+</head> 
+<body> 
+    <button onclick="createTable()">Create 
+Table</button> 
+    <div id="tableContainer"></div> 
+    <button id="colorButton" style="background
+color: red; color: white;">Hover Over Me</button> 
+<input type="text" id="textBox" 
+style="background-color: green;" placeholder="Type 
+something"> 
+<input type="text" id="inputText" 
+placeholder="Enter text"> 
+<button id="addButton">Add to List</button> 
+<ul id="list"></ul> 
+<input type="text" id="textInput" 
+placeholder="Type here"> 
+    <input type="text" id="counter" value="0" 
+readonly> 
+    <script> 
+        function createTable() { 
+            let table = 
+document.createElement("table"); 
+            table.border = "1"; 
+            for (let i = 0; i < 3; i++) { 
+                let row = table.insertRow(); 
+                for (let j = 0; j < 3; j++) { 
+                    let cell = row.insertCell(); 
+                    cell.innerText = `Row ${i+1} Col 
+${j+1}`; 
+} 
+} 
+document.getElementById("tableContainer"
+ ).appendChild(table); 
+} 
+let button = 
+document.getElementById("colorButton"); 
+        button.addEventListener("mouseover", 
+function() { 
+            button.style.backgroundColor = "green"; 
+        }); 
+        button.addEventListener("mouseout", 
+function() { 
+            button.style.backgroundColor = "red"; 
+        }); 
+        let textBox = 
+document.getElementById("textBox"); 
+        textBox.addEventListener("focus", function() 
+{ 
+            textBox.style.backgroundColor = 
+"yellow"; 
+        }); 
+        textBox.addEventListener("blur", function() 
+{ 
+            textBox.style.backgroundColor = "green"; 
+        }); 
+        textBox.addEventListener("change", 
+function() { 
+            alert("Hello! You changed the text."); 
+        }); 
+        let button = 
+document.getElementById("addButton"); 
+        let input = 
+document.getElementById("inputText"); 
+        let list = document.getElementById("list"); 
+        button.addEventListener("dblclick", 
+function() { 
+            if (input.value.trim() !== "") { 
+                let li = 
+document.createElement("li"); 
+                li.textContent = input.value; 
+                list.appendChild(li); 
+                input.value = ""; 
+            } 
+        });
+        let textInput = 
+document.getElementById("textInput"); 
+        let counter = 
+document.getElementById("counter"); 
+        let count = 0; 
+        textInput.addEventListener("keydown", 
+function() { 
+            count++; 
+            counter.value = count; 
+        }); 
+</script> 
+</body> 
+</html>   -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Table and Interactive Elements</title>
+</head>
+<body>
+
+  <!-- Button to Create Table -->
+  <button onclick="createTable()">Create Table</button>
+  <div id="tableContainer"></div>
+
+  <!-- Hover Color Change Button -->
+  <button id="colorButton" style="background-color: red; color: white;">Hover Over Me</button>
+
+  <!-- Focus and Blur Effects -->
+  <input type="text" id="textBox" style="background-color: green;" placeholder="Type something">
+
+  <!-- Double Click Add to List -->
+  <input type="text" id="inputText" placeholder="Enter text">
+  <button id="addButton">Add to List</button>
+  <ul id="list"></ul>
+
+  <!-- Key Counter -->
+  <input type="text" id="textInput" placeholder="Type here">
+  <input type="text" id="counter" value="0" readonly>
+
+  <script>
+    // Dynamic Table Creation
+    function createTable() {
+      let table = document.createElement("table");
+      table.border = "1";
+      for (let i = 0; i < 3; i++) {
+        let row = table.insertRow();
+        for (let j = 0; j < 3; j++) {
+          let cell = row.insertCell();
+          cell.innerText = `Row ${i + 1} Col ${j + 1}`;
+        }
+      }
+      document.getElementById("tableContainer").appendChild(table);
+    }
+
+    // Hover Button Color Change
+    const colorButton = document.getElementById("colorButton");
+    colorButton.addEventListener("mouseover", function () {
+      colorButton.style.backgroundColor = "green";
+    });
+    colorButton.addEventListener("mouseout", function () {
+      colorButton.style.backgroundColor = "red";
+    });
+
+    // Input Focus/Blur/Change
+    const textBox = document.getElementById("textBox");
+    textBox.addEventListener("focus", function () {
+      textBox.style.backgroundColor = "yellow";
+    });
+    textBox.addEventListener("blur", function () {
+      textBox.style.backgroundColor = "green";
+    });
+    textBox.addEventListener("change", function () {
+      alert("Hello! You changed the text.");
+    });
+
+    // Add List Item on Double Click
+    const addButton = document.getElementById("addButton");
+    const inputText = document.getElementById("inputText");
+    const list = document.getElementById("list");
+
+    addButton.addEventListener("dblclick", function () {
+      if (inputText.value.trim() !== "") {
+        const li = document.createElement("li");
+        li.textContent = inputText.value;
+        list.appendChild(li);
+        inputText.value = "";
+      }
+    });
+
+    // Count Keystrokes in TextInput
+    const textInput = document.getElementById("textInput");
+    const counter = document.getElementById("counter");
+    let count = 0;
+
+    textInput.addEventListener("keydown", function () {
+      count++;
+      counter.value = count;
+    });
+  </script>
+</body>
+</html>

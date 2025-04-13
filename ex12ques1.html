@@ -1,0 +1,90 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Canvas Scene with Animated Boat</title> 
+    <style> 
+        body { text-align: center; font-family: Arial, sans-serif; } 
+        canvas { border: 1px solid black; background: lightblue; } 
+    </style> 
+</head> 
+<body> 
+    <h2>Canvas Scene with Animated Boat</h2> 
+    <canvas id="sceneCanvas" width="800" height="500"></canvas> 
+     
+    <script> 
+        const canvas = document.getElementById("sceneCanvas"); 
+        const ctx = canvas.getContext("2d"); 
+        let boatX = 250;  
+        let boatDirection = 1; 
+ 
+        function drawScene() { 
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous frame 
+            ctx.fillStyle = "blue"; 
+            ctx.beginPath(); 
+            ctx.ellipse(400, 400, 150, 60, 0, 0, Math.PI * 2); 
+            ctx.fill(); 
+            ctx.fillStyle = "brown"; 
+            ctx.beginPath(); 
+            ctx.moveTo(boatX, 370); 
+            ctx.quadraticCurveTo(boatX + 50, 350, boatX + 100, 370); 
+            ctx.lineTo(boatX + 110, 390); 
+            ctx.lineTo(boatX - 10, 390); 
+            ctx.closePath(); 
+            ctx.fill(); 
+            ctx.fillStyle = "yellow"; 
+            ctx.beginPath(); 
+            ctx.arc(150, 380, 20, 0, Math.PI * 2); 
+            ctx.fill(); 
+            ctx.beginPath(); 
+            ctx.arc(170, 370, 10, 0, Math.PI * 2); 
+            ctx.fill(); 
+            ctx.fillStyle = "orange"; 
+            ctx.beginPath(); 
+            ctx.arc(650, 80, 30, 0, Math.PI * 2); 
+            ctx.fill(); 
+            for (let i = 0; i < 12; i++) { 
+                let angle = (i * Math.PI) / 6; 
+                let x1 = 650 + Math.cos(angle) * 30; 
+                let y1 = 80 + Math.sin(angle) * 30; 
+                let x2 = 650 + Math.cos(angle) * 45; 
+                let y2 = 80 + Math.sin(angle) * 45; 
+                ctx.beginPath(); 
+                ctx.moveTo(x1, y1); 
+                ctx.lineTo(x2, y2); 
+                ctx.stroke(); 
+            } 
+            ctx.fillStyle = "red"; 
+            ctx.fillRect(50, 250, 100, 100); 
+            ctx.fillStyle = "brown"; 
+            ctx.beginPath(); 
+            ctx.moveTo(40, 250); 
+            ctx.lineTo(100, 200); 
+            ctx.lineTo(160, 250); 
+            ctx.closePath(); 
+            ctx.fill(); 
+            ctx.fillStyle = "green"; 
+            ctx.fillRect(250, 350, 5, 50); // Stem 
+            ctx.fillStyle = "pink"; 
+            ctx.beginPath(); 
+            ctx.ellipse(252, 340, 20, 10, 0, 0, Math.PI * 2); // Petals 
+            ctx.fill(); 
+            ctx.fillStyle = "gray"; 
+            for (let i = 0; i < 5; i++) { 
+                let x = 500 + i * 15; 
+                let y = 460; 
+                ctx.beginPath(); 
+                ctx.arc(x, y, 7, 0, Math.PI * 2); 
+                ctx.fill(); 
+            } 
+            boatX += boatDirection * 1;  
+            if (boatX > 550 || boatX < 250) { 
+                boatDirection *= -1;  
+            } 
+            requestAnimationFrame(drawScene); 
+        } 
+        drawScene();  
+    </script> 
+</body> 
+</html>

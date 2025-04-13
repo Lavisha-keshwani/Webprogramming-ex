@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23BCE1507</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5dc;
+            text-align: center;
+        }
+        .container {
+            background-color: #8a9a5b;
+            padding: 20px;
+            border-radius: 10px;
+            width: 50%;
+            margin: auto;
+            color: white;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            background-color: #b08d57;
+            color: white;
+            cursor: pointer;
+        }
+        .product {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 10px;
+        }
+        .product img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Grocery Order Form</h2>
+        
+        <label>Customer Name:</label>
+        <input type="text" id="customerName" required> 
+        <br>
+        
+        <label>Phone Number:</label>
+        <input type="tel" id="phoneNumber" required>
+        <br>
+        
+        <label>Email:</label>
+        <input type="email" id="email" required>
+        <br><br>
+
+        <h3>Products</h3>
+
+        <div class="product">
+            <img src="apple.jpg" alt="Apple">
+            <input type="checkbox" class="product-check" value="Apple" data-price="10">
+            <label>Apple - $10/kg</label>
+            <input type="number" class="product-qty" min="0" placeholder="kg">
+        </div>
+
+        <div class="product">
+            <img src="banana.jpg" alt="Banana">
+            <input type="checkbox" class="product-check" value="Banana" data-price="5">
+            <label>Banana - $5/kg</label>
+            <input type="number" class="product-qty" min="0" placeholder="kg">
+        </div>
+
+        <div class="product">
+            <img src="avocado.jpg" alt="Avocado">
+            <input type="checkbox" class="product-check" value="Avocado" data-price="7">
+            <label>Avocado - $7/kg</label>
+            <input type="number" class="product-qty" min="0" placeholder="kg">
+        </div>
+
+        <br>
+        <button onclick="submitOrder()">SUBMIT</button>
+    </div>
+
+    <script>
+        function submitOrder() {
+    let customerName = document.getElementById("customerName").value.trim();
+    let phoneNumber = document.getElementById("phoneNumber").value.trim();
+    let email = document.getElementById("email").value.trim();
+
+    if (customerName === "" || phoneNumber === "" || email === "") {
+        alert("Please fill in all the details: Name, Phone Number, and Email.");
+        return;  // Stop execution if any field is empty
+    }
+
+    let products = [];
+    let checkboxes = document.querySelectorAll(".product-check");
+    let quantities = document.querySelectorAll(".product-qty");
+
+    checkboxes.forEach((checkbox, index) => {
+        if (checkbox.checked) {
+            let productName = checkbox.value;
+            let productPrice = checkbox.getAttribute("data-price");
+            let productQty = quantities[index].value || 0;
+            if (productQty > 0) {
+                products.push({ name: productName, price: productPrice, qty: productQty });
+            }
+        }
+    });
+
+    if (products.length === 0) {
+        alert("Please select at least one product with quantity.");
+        return;
+    }
+
+    let orderDetails = { customerName, phoneNumber, email, products };
+
+    localStorage.setItem("orderDetails", JSON.stringify(orderDetails));
+    window.location.href = "ex10ques3reciept.html";
+}
+    </script>
+
+</body>
+</html>

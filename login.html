@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #000911;
+            position: relative;
+        }
+        .container {
+            width: 800px;
+            height: 500px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        /* Business Name, Tagline, and Icon */
+        .header {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            transition: 0.5s;
+        }
+        .business-name {
+            font-size: 22px;
+            font-weight: bold;
+            color: #C0C0C0;
+            transition: 0.5s;
+        }
+        .tagline {
+            font-size: 14px;
+            color: #7f8c8d;
+            transition: 0.5s;
+        }
+        .icon {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            color: #2c3e50;
+            transition: 0.5s;
+        }
+
+        /* Left and Right Panels */
+        .left, .right {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+        .left {
+            background: linear-gradient(135deg, #93cccf, #143232);
+            color: white;
+            text-align: center;
+        }
+        .right {
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 15px;
+        }
+        .form-group {
+            width: 80%;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            width: 80%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #2980b9;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background: #1f6692;
+        }
+        .toggle-text {
+            margin-top: 15px;
+            font-size: 14px;
+            cursor: pointer;
+            color: #2980b9;
+            display: block;
+        }
+        .otp-message {
+            font-size: 12px;
+            color: green;
+            display: none;
+            margin-top: 5px;
+        }
+
+        /* Toggle Effect */
+        .container.signup-active .left {
+            transform: translateX(100%);
+        }
+        .container.signup-active .right {
+            transform: translateX(-100%);
+        }
+        .container.signup-active .business-name {
+            color: #2980b9;
+        }
+        .container.signup-active .tagline {
+            color: #1f6692;
+        }
+        .container.signup-active .icon {
+            color: #2980b9;
+            transform: rotate(360deg);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="container">
+        <!-- Business Name, Tagline, and Icon -->
+        <div class="header">
+            <div class="business-name" id="business-name">SmallBiz</div>
+            <div class="tagline" id="tagline">Continue to SmallBiz</div>
+        </div>
+        <div class="icon" id="icon">🏢</div>
+
+        <!-- Left Panel -->
+        <div class="left" id="left">
+            <h2>Welcome Back!</h2>
+            <p>Already have an account? Sign in by clicking below</p>
+            <button class="btn" onclick="toggleForm()">SIGN IN</button>
+        </div>
+
+        <!-- Right Panel (Login / Signup Form) -->
+        <div class="right" id="right">
+            <h2 id="form-title">Create Account</h2>
+            <form id="auth-form">
+                <div id="signup-fields">
+                    <div class="form-group">
+                        <input type="text" id="name" placeholder="Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Email" onblur="validateEmail()">
+                    <p class="otp-message" id="email-otp">OTP sent to your email</p>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="phone" placeholder="Phone Number" onblur="validatePhone()">
+                    <p class="otp-message" id="phone-otp">OTP sent to your mobile</p>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" placeholder="Password">
+                </div>
+                <button class="btn" type="button" id="submit-btn" onclick="submitForm()">SIGN UP</button>
+                <p class="toggle-text" id="toggle-text" onclick="toggleForm()">Already have an account? Sign In</p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleForm() {
+            const container = document.getElementById("container");
+            const formTitle = document.getElementById("form-title");
+            const signupFields = document.getElementById("signup-fields");
+            const submitBtn = document.getElementById("submit-btn");
+            const toggleText = document.getElementById("toggle-text");
+            
+            container.classList.toggle("signup-active");
+
+            if (container.classList.contains("signup-active")) {
+                formTitle.innerText = "Sign In";
+                signupFields.style.display = "none";
+                submitBtn.innerText = "LOGIN";
+                toggleText.innerText = "Don't have an account? Sign Up";
+            } else {
+                formTitle.innerText = "Create Account";
+                signupFields.style.display = "block";
+                submitBtn.innerText = "SIGN UP";
+                toggleText.innerText = "Already have an account? Sign In";
+            }
+        }
+
+        function validateEmail() {
+            const email = document.getElementById("email").value;
+            const emailOtp = document.getElementById("email-otp");
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            if (!emailRegex.test(email)) {
+                alert("Please enter a valid email address");
+                emailOtp.style.display = "none";
+            } else {
+                if (!document.getElementById("container").classList.contains("signup-active")) {
+                    emailOtp.style.display = "block";
+                }
+            }
+        }
+
+        function validatePhone() {
+            const phone = document.getElementById("phone").value;
+            const phoneOtp = document.getElementById("phone-otp");
+            const phoneRegex = /^[0-9]{10}$/;
+
+            if (!phoneRegex.test(phone)) {
+                alert("Please enter a valid 10-digit phone number");
+                phoneOtp.style.display = "none";
+            } else {
+                if (!document.getElementById("container").classList.contains("signup-active")) {
+                    phoneOtp.style.display = "block";
+                }
+            }
+        }
+
+        function submitForm() {
+            const container = document.getElementById("container");
+            if (container.classList.contains("signup-active")) {
+                alert("Login Successful!");
+                window.location.href = "project_frontend.html";
+            } else {
+                alert("OTP has been sent to your email and phone");
+            }
+        }
+    </script>
+
+</body>
+</html>

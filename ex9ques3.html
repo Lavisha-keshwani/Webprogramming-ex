@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>23BCE1507</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background: rgb(233, 198, 205);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        .btn {
+            background-color: rgb(11, 11, 12);
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .table-container {
+            margin: 30px auto;
+            width: 80%;
+            max-width: 600px;
+        }
+        table {
+            width: 100%;
+            border-color: #000000;
+            border-collapse: collapse;
+            background: rgb(194, 232, 183);
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #000000;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>BMI Calculator</h2>
+        <div class="input-group">
+            <label for="gender">Select Gender:</label>
+            <select id="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="weight">Enter Your Weight (lbs):</label>
+            <input type="number" id="weight" placeholder="Weight in pounds">
+        </div>
+
+        <div class="input-group">
+            <label for="feet">Enter Your Height:</label>
+            <input type="number" id="feet" placeholder="Feet">
+            <input type="number" id="inches" placeholder="Inches">
+        </div>
+
+        <button class="btn" onclick="calculateBMI()">Calculate</button>
+
+        <div class="input-group">
+            <label>Your BMI:</label>
+            <input type="text" id="bmiResult" readonly>
+        </div>
+    </div>
+
+    <!-- BMI Criteria Table -->
+    <div class="table-container">
+        <h3>BMI Criteria Table</h3>
+        <table>
+            <tr>
+                <th>Category</th>
+                <th>Women</th>
+                <th>Men</th>
+            </tr>
+            <tr>
+                <td>Anorexia</td>
+                <td>Less than 17.50</td>
+                <td>Less than 17.50</td>
+            </tr>
+            <tr>
+                <td>Underweight</td>
+                <td>17.51 - 19.10</td>
+                <td>17.501 - 20.70</td>
+            </tr>
+            <tr>
+                <td><strong>Ideal range</strong></td>
+                <td><strong>19.11 - 25.80</strong></td>
+                <td><strong>20.71 - 26.40</strong></td>
+            </tr>
+            <tr>
+                <td>Marginally overweight range</td>
+                <td>25.81 - 27.30</td>
+                <td>26.41 - 27.80</td>
+            </tr>
+            <tr>
+                <td>Overweight range</td>
+                <td>27.31 - 32.30</td>
+                <td>27.81 - 31.10</td>
+            </tr>
+            <tr>
+                <td>Very overweight or Obese</td>
+                <td>More than 32.30</td>
+                <td>More than 31.10</td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        function calculateBMI() {
+            let gender = document.getElementById("gender").value;
+            let weight = parseFloat(document.getElementById("weight").value);
+            let feet = parseFloat(document.getElementById("feet").value);
+            let inches = parseFloat(document.getElementById("inches").value);
+
+            if (isNaN(weight) || isNaN(feet) || isNaN(inches)) {
+                alert("Please enter valid numbers!");
+                return;
+            }
+
+            let heightInInches = (feet * 12) + inches;
+            let bmi = (703 * weight) / (heightInInches * heightInInches);
+            bmi = bmi.toFixed(2);
+
+            document.getElementById("bmiResult").value = bmi;
+
+            let status = "";
+
+            if (gender === "male") {
+                if (bmi < 17.50) status = "Anorexia";
+                else if (bmi >= 17.50 && bmi <= 20.70) status = "Underweight";
+                else if (bmi > 20.71 && bmi <= 26.40) status = "Ideal Range";
+                else if (bmi > 26.41 && bmi <= 27.80) status = "Marginally Overweight";
+                else if (bmi > 27.81 && bmi <= 31.10) status = "Overweight";
+                else status = "Very Overweight or Obese";
+            } else {
+                if (bmi < 17.50) status = "Anorexia";
+                else if (bmi >= 17.51 && bmi <= 19.10) status = "Underweight";
+                else if (bmi > 19.11 && bmi <= 25.80) status = "Ideal Range";
+                else if (bmi > 25.81 && bmi <= 27.30) status = "Marginally Overweight";
+                else if (bmi > 27.31 && bmi <= 32.30) status = "Overweight";
+                else status = "Very Overweight or Obese";
+            }
+
+            alert("Your BMI is " + bmi + "\nStatus: " + status);
+        }
+    </script>
+
+</body>
+</html>

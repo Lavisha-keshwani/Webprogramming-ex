@@ -1,0 +1,151 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function myfunction()
+        {
+            let x=document.createElement("FORM");
+            x.setAttribute("id","myform");
+            document.body.appendChild(x);
+            let y=document.createElement("Input");
+            y.setAttribute("type","text");
+            y.setAttribute("value","John");
+            document.getElementbyId("myform").appendChild(y);
+        }
+    </script>
+</head>
+<body>
+    <p>Click the button to create a form</p>
+    <button onclick="myfunction()">Try it</button>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Form Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .input-field {
+            display: block;
+            margin-bottom: 15px;
+        }
+        .input-field input {
+            padding: 8px;
+            width: 250px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .input-field input.invalid {
+            border-color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>Real-Time Form Validation</h2>
+    <form>
+        <div class="input-field">
+            Name: <input type="text" id="name" oninput="validateName()">
+            <div class="error" id="nameError"></div>
+        </div>
+
+        <div class="input-field">
+            Email: <input type="text" id="email" oninput="validateEmail()">
+            <div class="error" id="emailError"></div>
+        </div>
+
+        <div class="input-field">
+            Password: <input type="password" id="password" oninput="validatePassword()">
+            <div class="error" id="passwordError"></div>
+        </div>
+
+        <div class="input-field">
+            Age: <input type="text" id="age" oninput="validateAge()">
+            <div class="error" id="ageError"></div>
+        </div>
+
+        <input type="submit" value="Submit" disabled id="submitBtn">
+    </form>
+
+    <script>
+        function validateName() {
+            let name = document.getElementById("name");
+            let error = document.getElementById("nameError");
+
+            if (name.value.trim() === "") {
+                error.innerText = "Name cannot be empty.";
+                name.classList.add("invalid");
+            } else {
+                error.innerText = "";
+                name.classList.remove("invalid");
+            }
+            validateForm();
+        }
+
+        function validateEmail() {
+            let email = document.getElementById("email");
+            let error = document.getElementById("emailError");
+            let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            if (!emailPattern.test(email.value.trim())) {
+                error.innerText = "Enter a valid email address.";
+                email.classList.add("invalid");
+            } else {
+                error.innerText = "";
+                email.classList.remove("invalid");
+            }
+            validateForm();
+        }
+
+        function validatePassword() {
+            let password = document.getElementById("password");
+            let error = document.getElementById("passwordError");
+
+            if (password.value.length < 6) {
+                error.innerText = "Password must be at least 6 characters.";
+                password.classList.add("invalid");
+            } else {
+                error.innerText = "";
+                password.classList.remove("invalid");
+            }
+            validateForm();
+        }
+
+        function validateAge() {
+            let age = document.getElementById("age");
+            let error = document.getElementById("ageError");
+
+            if (isNaN(age.value) || age.value.trim() === "" || age.value <= 0) {
+                error.innerText = "Enter a valid age.";
+                age.classList.add("invalid");
+            } else {
+                error.innerText = "";
+                age.classList.remove("invalid");
+            }
+            validateForm();
+        }
+
+        function validateForm() {
+            let errors = document.querySelectorAll(".error");
+            let submitBtn = document.getElementById("submitBtn");
+            let hasError = Array.from(errors).some(error => error.innerText !== "");
+
+            submitBtn.disabled = hasError;
+        }
+    </script>
+</body>
+</html>
+
