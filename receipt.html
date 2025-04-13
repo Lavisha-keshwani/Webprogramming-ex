@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Receipt</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .receipt-container {
+      background-color: #ffffff;
+      width: 400px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .receipt-header h1 {
+      color: #2a9d8f;
+      margin-bottom: 10px;
+    }
+
+    .receipt-header p {
+      color: #555;
+      font-size: 14px;
+    }
+
+    .date {
+      font-weight: bold;
+    }
+
+    .receipt-items table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .receipt-items th, .receipt-items td {
+      padding: 8px;
+      text-align: left;
+    }
+
+    .receipt-items th {
+      background-color: #f1f1f1;
+      color: #333;
+    }
+
+    .receipt-items td {
+      border-bottom: 1px solid #ddd;
+    }
+
+    .receipt-summary p {
+      font-size: 16px;
+      color: #333;
+      margin: 5px 0;
+    }
+
+    .amount {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .total-amount {
+      color: #2a9d8f;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .receipt-footer p {
+      font-size: 14px;
+      color: #777;
+      margin-top: 20px;
+    }
+
+    .receipt-footer p:first-child {
+      font-weight: bold;
+    }
+
+    .download-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #2a9d8f;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .download-btn:hover {
+      background-color: #21867a;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="receipt-container" id="receipt">
+    <div class="receipt-header">
+      <h1>Small Biz</h1>
+      <p>1234 Store Avenue, City, Country</p>
+      <p>Date: <span class="date">12/04/2025</span></p>
+      <p>Receipt #123456789</p>
+    </div>
+
+    <div class="receipt-items">
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Item 1</td>
+            <td>$10.00</td>
+          </tr>
+          <tr>
+            <td>Item 2</td>
+            <td>$15.50</td>
+          </tr>
+          <tr>
+            <td>Item 3</td>
+            <td>$7.25</td>
+          </tr>
+          <tr>
+            <td>Item 4</td>
+            <td>$5.00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="receipt-summary">
+      <p>Subtotal: <span class="amount">$37.75</span></p>
+      <p>Tax (10%): <span class="amount">$3.78</span></p>
+      <p><strong>Total: <span class="total-amount">$41.53</span></strong></p>
+    </div>
+
+    <div class="receipt-footer">
+      <p>Thank you for your purchase!</p>
+      <p>Visit us again!</p>
+    </div>
+
+    <button class="download-btn" id="downloadBtn">Download Receipt</button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    document.getElementById('downloadBtn').addEventListener('click', function() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      const receipt = document.getElementById('receipt');
+      doc.html(receipt, {
+        callback: function (doc) {
+          doc.save('receipt.pdf');
+        },
+        x: 10,
+        y: 10
+      });
+    });
+  </script>
+
+</body>
+</html>
